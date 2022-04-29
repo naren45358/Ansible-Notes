@@ -232,3 +232,132 @@ echo `date`
 echo "Current Date is: $day-$month-$year"
 echo "Current Time is: $hour:$minute:$second"
 
+
+36. Cleaning the Log files
+You can simply use this particular script to delete every log file present in your var/log directory.
+
+#!/bin/bash
+LOG_DIR=/var/log
+cd $LOG_DIR
+
+cat /dev/null > messages
+cat /dev/null > wtmp
+echo "Logs cleaned up."
+
+35. Print Number of Files or Directories
+For finding the number of files or folders present within a directory, try out the following script below.
+
+#!/bin/bash
+
+if [ -d "$@" ]; then
+echo "Files found: $(find "$@" -type f | wc -l)"
+echo "Folders found: $(find "$@" -type d | wc -l)"
+else
+echo "[ERROR] Please retry with another folder."
+exit 1
+fi
+
+37. The Use of Bash to Backup Scripts
+There is a way you can simply use bash to back up your Linux shell scripts presented in your files and directories.
+
+#!/bin/bash
+
+BACKUPFILE=backup-$(date +%m-%d-%Y)
+archive=${1:-$BACKUPFILE}
+
+find . -mtime -1 -type f -print0 | xargs -0 tar rvf "$archive.tar"
+echo "Directory $PWD backed up in archive file \"$archive.tar.gz\"."
+exit 0
+
+How to check if a person is root or not
+Bash scripts can be used to tell if a user is root or not.
+
+#!/bin/bash
+ROOT_UID=0
+
+if [ "$UID" -eq "$ROOT_UID" ]
+then
+echo "Yes, you are root."
+else
+echo "No, you are not root"
+fi
+exit 0
+
+40. System Maintenance
+The Linux shell script will be given below help teach you how you can easily upgrade your system without going through the stressful manual way.
+
+#!/bin/bash
+
+echo -e "\n$(date "+%d-%m-%Y --- %T") --- Starting work\n"
+
+apt-get update
+apt-get -y upgrade
+
+apt-get -y autoremove
+apt-get autoclean
+
+echo -e "\n$(date "+%T") \t Script Terminated"
+
+41. Trying to use the If Statement together with the AND Logic
+You can also try out using any logical conditions in an If Statement that has more than one condition.
+
+!/bin/bash
+
+echo "Enter username"
+read username
+echo "Enter password"
+read password
+
+if [[ ( $username == "admin" && $password == "secret" ) ]]; then
+echo "valid user"
+else
+echo "invalid user"
+fi
+
+42. The use of the OR condition with the If Statement
+Any OR condition in an If statement is represented using “||“.
+
+#!/bin/bash
+
+echo "Enter any number"
+read n
+
+if [[ ( $n -eq 20 || $n  -eq 60 ) ]]
+then
+echo "Congratulations! You are the winner of the game"
+else
+echo "Oops, you have just lost, try again!"
+fi
+
+43. Case Statement
+You are allowed to try this statement out if you are looking for an alternative for if-elseif-else statement.
+
+#!/bin/bash
+
+echo "Enter your lucky number"
+read n
+case $n in
+101)
+echo echo "You got 1st prize" ;;
+510)
+echo "You got 2nd prize" ;;
+999)
+echo "You got 3rd prize" ;;
+*)
+echo "Sorry, try for the next time" ;;
+esac
+
+44. Combining String Variables
+Check the program below to see how you can comfortably combine string variables together in a bash shell script.
+
+#!/bin/bash
+
+string1="Dunebook"
+string2="will give you"
+echo "$string1$string2"
+string3=$string1+$string2
+string3+=" the content you ever desire"
+echo $string3
+
+
+
